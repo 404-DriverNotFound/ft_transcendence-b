@@ -1,0 +1,6 @@
+[submodule "backend-b"]
+	path = backend-b
+	url = https://github.com/404-DriverNotFound/backend-b
+[submodule "frontend-b"]
+	path = frontend-b
+	url = https://github.com/404-DriverNotFound/frontend-b
