@@ -1,0 +1,36 @@
+version: "3.8"
+
+services:
+  db:
+    image: postgres
+    restart: always
+    volumes:
+      - ./data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: eexample
+      POSTGRES_USER: sampleuser
+      POSTGRES_DB: trans
+
+  backend:
+    build:
+      context: ./backend-b
+      dockerfile: Dockerfile
+    restart: always
+    depends_on:
+      - db
+    ports:
+      - 5000:5000
+    #env_file:
+    #  - ./api/.env.stage.dev
+
+  frontend:
+    build:
+      context: ./frontend-b
+      dockerfile: Dockerfile
+    restart: always
+    depends_on:
+      - db
+    ports:
+      - 3000:3000
+    #env_file:
+    #  - ./api/.env.stage.dev
