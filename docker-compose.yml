@@ -22,6 +22,8 @@ services:
       context: ./backend-b
       dockerfile: Dockerfile
     restart: always
+    volumes:
+      - ./backend-b/files:/app/files
     depends_on:
       - db
     ports:
