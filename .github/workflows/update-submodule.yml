@@ -1,0 +1,30 @@
+# Reference
+# https://stackoverflow.com/questions/64407333/using-github-actions-to-automatically-update-the-repos-submodules
+
+name: Update submodule
+
+on:
+  schedule:
+    - cron: "0 0 * * *"
+
+  workflow_dispatch:
+
+jobs:
+  update:
+    runs-on: macos-11
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Pull & update submodules recursively
+        run: |
+          git submodule update --init --recursive
+          git submodule update --recursive --remote
+
+      - name: Commit
+        run: |
+          git config --global user.name 'ykoh42'
+          git config --global user.email 'kohyounghwan@gmail.com'
+          git add .
+          git commit -m "Update: submodules" || echo "No changes to commit"
+          git push
